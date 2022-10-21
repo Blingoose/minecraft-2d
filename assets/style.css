@@ -1,0 +1,44 @@
+* {
+  box-sizing: border-box;
+  border-radius: 0;
+  margin: 0;
+}
+.container {
+  /* width: 100vw; */
+  height: 100vh;
+}
+#board {
+  display: grid;
+  grid-template-rows: repeat(20, 1fr);
+  grid-template-columns: repeat(28, 1fr);
+  width: 100vw;
+  height: calc(96vh - 2vmin);
+}
+
+.tool-panel {
+  height: calc(14.5vh - 8.5%);
+  background-color: black;
+}
+
+.sky {
+  background-color: deepskyblue;
+}
+
+.dirt {
+  background: url(../img/dirt.webp) 0 / cover no-repeat;
+}
+.grass {
+  background: url(../img/grass_dirt.webp);
+}
+.rock {
+  background: url(../img/rock.webp);
+}
+.tr-leg {
+  background: url(../img/tree_bottom.webp);
+}
+.tr-top {
+  background: url(../img/tree_top.webp);
+}
+.cloud {
+  background: url(../img/clouds.webp);
+}
