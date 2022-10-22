@@ -161,29 +161,25 @@ function chooseResource(e) {
     variables["rock"].classList.remove("choosen-res");
     variables["dirt"].classList.remove("choosen-res");
     variables["grass"].classList.remove("choosen-res");
-  }
-  if (e.target.classList.contains("tr-top") && inventory["tr-top"] > 0) {
+  } else if (e.target.classList.contains("tr-top") && inventory["tr-top"] > 0) {
     variables["tr-top"].classList.add("choosen-res");
     variables["tr-leg"].classList.remove("choosen-res");
     variables["rock"].classList.remove("choosen-res");
     variables["dirt"].classList.remove("choosen-res");
     variables["grass"].classList.remove("choosen-res");
-  }
-  if (e.target.classList.contains("rock") && inventory["rock"] > 0) {
+  } else if (e.target.classList.contains("rock") && inventory["rock"] > 0) {
     variables["rock"].classList.add("choosen-res");
     variables["tr-top"].classList.remove("choosen-res");
     variables["tr-leg"].classList.remove("choosen-res");
     variables["dirt"].classList.remove("choosen-res");
     variables["grass"].classList.remove("choosen-res");
-  }
-  if (e.target.classList.contains("dirt") && inventory["dirt"] > 0) {
+  } else if (e.target.classList.contains("dirt") && inventory["dirt"] > 0) {
     variables["dirt"].classList.add("choosen-res");
     variables["rock"].classList.remove("choosen-res");
     variables["tr-top"].classList.remove("choosen-res");
     variables["tr-leg"].classList.remove("choosen-res");
     variables["grass"].classList.remove("choosen-res");
-  }
-  if (e.target.classList.contains("grass") && inventory["grass"] > 0) {
+  } else if (e.target.classList.contains("grass") && inventory["grass"] > 0) {
     variables["grass"].classList.add("choosen-res");
     variables["dirt"].classList.remove("choosen-res");
     variables["rock"].classList.remove("choosen-res");
