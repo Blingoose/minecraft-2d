@@ -39,7 +39,10 @@ function drawElements(cell) {
   if (y > 18) {
     return resources.dirt;
   }
-  if (y > 13 && y < 18 && x > 3 && x < 5) {
+  if (
+    (y > 13 && y < 18 && x > 3 && x < 5) ||
+    (y > 14 && y < 18 && x > 13 && x < 16)
+  ) {
     return resources.treeLeg;
   }
   if (
@@ -48,6 +51,18 @@ function drawElements(cell) {
     (y >= 11 && y < 15 && x === 5)
   ) {
     return resources.treeTop;
+  }
+  if (
+    (y === 9 && x > 10 && x < 19) ||
+    (y === 8 && x > 11 && x < 18) ||
+    (y === 7 && x > 12 && x < 17) ||
+    (y > 11 && y < 20 && x > 11 && x < 18 && x != 15 && x != 14) ||
+    (y > 9 && y < 12 && x === 12) ||
+    (y > 9 && y < 12 && x > 13 && x < 16) ||
+    (y > 9 && y < 12 && x > 16 && x < 18) ||
+    (y > 11 && y < 15 && x > 13 && x < 16)
+  ) {
+    return resources.rock;
   }
 
   // else return resources.sky;

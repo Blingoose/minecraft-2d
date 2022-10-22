@@ -16,9 +16,47 @@
   height: calc(94.1vh - 2vmin);
 }
 
-.tool-panel {
+.bottom-panel {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
   height: calc(16.4vh - 8.5%);
-  background-color: black;
+  background-color: rgb(61, 52, 43);
+}
+
+p {
+  margin-top: 2px;
+}
+
+.box {
+  height: 85%;
+  width: 50px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  border: 1px solid white;
+}
+
+.resources-panel {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  /* background-color: wheat; */
+  margin-top: 15px;
+  width: 300px;
+  height: 100%;
+}
+
+.tool-panel {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 15px;
+  width: 200px;
+  height: 100%;
 }
 
 .sky {
@@ -42,4 +80,14 @@
 }
 .cloud {
   background: url(../img/clouds.webp) 0 0 / cover no-repeat;
+}
+
+.shovel {
+  background: url(../img/shovel.webp) center center / contain no-repeat;
+}
+.pickaxe {
+  background: url(../img/pickaxe.webp) center / contain no-repeat;
+}
+.axe {
+  background: url(../img/axe.webp) center center / contain no-repeat;
 }
