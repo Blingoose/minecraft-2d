@@ -1,52 +1,65 @@
-const board = document.querySelector("#board");
-const matrix = [
-    ["sky","sky", "sky", "sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky",],
-    ["sky","sky", "sky", "sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky"],
-    ["sky","sky", "sky", "sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky",],
-    ["sky","sky", "sky", "sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky",],
-    ["sky","sky", "sky", "sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky",],
-    ["sky","sky", "sky", "sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky",],
-    ["sky","sky", "sky", "sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky",],
-    ["sky","sky", "sky", "sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky",],
-    ["sky","sky", "sky", "sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky",],
-    ["sky","sky", "sky", "sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky",],
-    ["sky","sky", "tr-top", "tr-top","tr-top","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky",],
-    ["sky","sky", "tr-top", "tr-top","tr-top","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky",],
-    ["sky","sky", "tr-top", "tr-top","tr-top","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky",],
-    ["sky","sky", "tr-top", "tr-leg","tr-top","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky",],
-    ["sky","sky", "sky", "tr-leg","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky",],
-    ["sky","sky", "sky", "tr-leg","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky",],
-    ["sky","sky", "sky", "tr-leg","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky","sky",],
-    ["grass","grass", "grass", "grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass","grass"],
-    ["dirt","dirt", "dirt", "dirt","dirt","dirt","dirt","dirt","dirt","dirt","dirt","dirt","dirt","dirt","dirt","dirt","dirt","dirt","dirt","dirt","dirt","dirt","dirt","dirt","dirt","dirt","dirt","dirt","dirt"],
-    ["dirt","dirt", "dirt", "dirt","dirt","dirt","dirt","dirt","dirt","dirt","dirt","dirt","dirt","dirt","dirt","dirt","dirt","dirt","dirt","dirt","dirt","dirt","dirt","dirt","dirt","dirt","dirt","dirt","dirt"],
-   
-]
-for (let i = 0; i < 21; i++) {
-  for (let j = 1; j < 29; j++) {
-    let cell = document.createElement("div");
-    cell.classList.add(matrix[i][j]);
-    board.appendChild(cell);
-    cell.addEventListener("click", (e)=> {
-        console.dir(e.target);
-    })
+const variables = {
+  board: document.querySelector("#board"),
+  MATRIX_Y_AXIS: 20,
+  MATRIX_X_AXIS: 28,
+  cell: null,
+  addTexture: null,
+};
+
+const resources = {
+  sky: "sky",
+  dirt: "dirt",
+  grass: "grass",
+  rock: "rock",
+  treeLeg: "tr-leg",
+  treeTop: "tr-top",
+  cloud: "cloud",
+};
+
+function appendElements() {
+  for (let i = 1; i <= variables.MATRIX_Y_AXIS; i++) {
+    for (let j = 1; j <= variables.MATRIX_X_AXIS; j++) {
+      variables.cell = document.createElement("div");
+      variables.cell.dataset.y = i;
+      variables.cell.dataset.x = j;
+      variables.addTexture = drawElements(variables.cell);
+      variables.cell.classList.add(variables.addTexture);
+      variables.board.append(variables.cell);
+    }
   }
 }
-// const cells = document.querySelectorAll(".color");
-// const cellsArr = [...cells];
 
+function drawElements(cell) {
+  const y = parseInt(cell.dataset.y);
+  const x = parseInt(cell.dataset.x);
 
-function getElementOfCssGrid(x, y) {
-  let gridComputedStyle = window.getComputedStyle(
-    document.querySelector("#board")
-  );
-  let col = gridComputedStyle
-    .getPropertyValue("grid-template-columns")
-    .split(" ").length;
+  if (y === 18) {
+    return resources.grass;
+  }
+  if (y > 18) {
+    return resources.dirt;
+  }
+  if (y > 13 && y < 18 && x > 3 && x < 5) {
+    return resources.treeLeg;
+  }
+  if (
+    (y >= 11 && y < 15 && x === 3) ||
+    (y >= 11 && y < 14 && x === 4) ||
+    (y >= 11 && y < 15 && x === 5)
+  ) {
+    return resources.treeTop;
+  }
 
-  let n = col * (y - 1) + x;
-  return document.querySelector(`.color:nth-child(${n})`);
+  // else return resources.sky;
 }
 
+function createGame() {
+  appendElements();
+  board.addEventListener("click", clickHandler);
+}
 
+function clickHandler(e) {
+  console.log(e.target);
+}
 
+createGame();
