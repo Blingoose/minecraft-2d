@@ -18,30 +18,49 @@
 
 .bottom-panel {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-evenly;
   height: calc(16.4vh - 8.5%);
   background-color: rgb(61, 52, 43);
 }
 
 p {
+  margin: 0;
+  /* line-height: 0; */
+  font-size: 12px;
   margin-top: 2px;
+  z-index: -1;
 }
 
 .box {
-  height: 85%;
+  height: 100%;
   width: 50px;
-  color: white;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   font-size: 14px;
+
+  /* border: 1px solid white; */
+}
+.toolbox {
+  height: 100%;
+  width: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  color: white;
   border: 1px solid white;
 }
 
 .choosen-box {
-  /* outline: 2px yellow solid; */
+  background-color: yellow;
+  opacity: 1;
+}
+.opacity {
+  opacity: 0.7;
 }
 
 .resources-panel {
@@ -49,18 +68,18 @@ p {
   justify-content: space-between;
   align-items: flex-start;
   /* background-color: wheat; */
-  margin-top: 15px;
+  margin-top: 5px;
   width: 300px;
-  height: 100%;
+  height: 80%;
 }
 
 .tool-panel {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-top: 15px;
+  margin-top: 5px;
   width: 200px;
-  height: 100%;
+  height: 80%;
 }
 
 .sky {

@@ -4,12 +4,12 @@ const variables = {
   shovel: document.querySelector(".tool-shovel"),
   pickaxe: document.querySelector(".tool-pickaxe"),
   axe: document.querySelector(".tool-axe"),
-  resourcePanel: document.querySelector(".resources-panel")
+  resourcePanel: document.querySelector(".resources-panel"),
   MATRIX_Y_AXIS: 20,
   MATRIX_X_AXIS: 28,
   cell: null,
   addTexture: null,
-  currentTool: null,
+  currentTool: "",
 };
 
 const resources = {
@@ -26,8 +26,15 @@ const inventory = {
   dirt: 0,
   grass: 0,
   rock: 0,
-  treeLeg: 0,
-  treeTop: 0,
+  "tr-top": 0,
+  "tr-leg": 0,
+  status: {
+    dirt: document.querySelector(".dirt"),
+    grass: document.querySelector(".grass"),
+    rock: document.querySelector(".rock"),
+    "tr-top": document.querySelector(".tr-top"),
+    "tr-leg": document.querySelector(".tr-leg"),
+  },
 };
 
 const tools = {
@@ -94,34 +101,39 @@ function drawElements(cell) {
 
 function createGame() {
   appendElements();
-  variables.board.addEventListener("click", blockClick);
   variables.tools.addEventListener("click", chooseTool);
-  resources.addEventListener("click", chooseTool);
-
+  variables.board.addEventListener("click", blockClick);
+  // resources.addEventListener("click", chooseResource);
 }
 
 function blockClick(e) {
-  console.log(e.target);
+  let div = e.target;
+  let resource = e.target.getAttribute("class");
+  if (matchToolandResource(resource)) {
+    addToInventory(resource, div);
+    removeResource(resource, div);
+  }
+  console.log(inventory);
 }
 
 function chooseTool(e) {
   console.log(e.target);
   if (e.target.classList.contains("shovel")) {
-    currentTool = tools.shovel;
+    variables.currentTool = tools.shovel;
     variables.shovel.classList.add("choosen-box");
     variables.pickaxe.classList.remove("choosen-box");
     variables.axe.classList.remove("choosen-box");
   } else if (e.target.classList.contains("pickaxe")) {
-    currentTool = tools.pickaxe;
+    variables.currentTool = tools.pickaxe;
     variables.pickaxe.classList.add("choosen-box");
     variables.shovel.classList.remove("choosen-box");
     variables.axe.classList.remove("choosen-box");
   } else if (e.target.classList.contains("axe")) {
-    currentTool = tools.axe;
+    variables.currentTool = tools.axe;
     variables.axe.classList.add("choosen-box");
     variables.shovel.classList.remove("choosen-box");
     variables.pickaxe.classList.remove("choosen-box");
-  } 
+  }
   // else {
   //   currentTool = "";
   //   variables.axe.classList.remove("choosen-box");
@@ -130,6 +142,24 @@ function chooseTool(e) {
   // }
 }
 
-function addToInventory(resource) {}
+function matchToolandResource(resource) {
+  if (variables.currentTool) {
+    return toolAndResource[variables.currentTool].includes(resource);
+  }
+  return false;
+}
 
+function addToInventory(resource, div) {
+  if (div.classList.contains(resource)) {
+    inventory[resource]++;
+    inventory.status[resource].innerText++;
+  }
+}
+
+function removeResource(resource, div) {
+  if (div.classList.contains(resource)) {
+    div.classList.remove(resource);
+    div.classList.add("sky");
+  }
+}
 createGame();
