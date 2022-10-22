@@ -5,6 +5,11 @@ const variables = {
   pickaxe: document.querySelector(".tool-pickaxe"),
   axe: document.querySelector(".tool-axe"),
   resourcePanel: document.querySelector(".resources-panel"),
+  "tr-leg": document.querySelector(".treeLegBorder"),
+  "tr-top": document.querySelector(".treeTopBorder"),
+  rock: document.querySelector(".rockBorder"),
+  dirt: document.querySelector(".dirtBorder"),
+  grass: document.querySelector(".grassBorder"),
   MATRIX_Y_AXIS: 20,
   MATRIX_X_AXIS: 28,
   cell: null,
@@ -103,7 +108,7 @@ function createGame() {
   appendElements();
   variables.tools.addEventListener("click", chooseTool);
   variables.board.addEventListener("click", blockClick);
-  // resources.addEventListener("click", chooseResource);
+  variables.resourcePanel.addEventListener("click", chooseResource);
 }
 
 function blockClick(e) {
@@ -113,11 +118,9 @@ function blockClick(e) {
     addToInventory(resource, div);
     removeResource(resource, div);
   }
-  console.log(inventory);
 }
 
 function chooseTool(e) {
-  console.log(e.target);
   if (e.target.classList.contains("shovel")) {
     variables.currentTool = tools.shovel;
     variables.shovel.classList.add("choosen-box");
@@ -134,12 +137,6 @@ function chooseTool(e) {
     variables.shovel.classList.remove("choosen-box");
     variables.pickaxe.classList.remove("choosen-box");
   }
-  // else {
-  //   currentTool = "";
-  //   variables.axe.classList.remove("choosen-box");
-  //   variables.shovel.classList.remove("choosen-box");
-  //   variables.pickaxe.classList.remove("choosen-box");
-  // }
 }
 
 function matchToolandResource(resource) {
@@ -153,13 +150,53 @@ function addToInventory(resource, div) {
   if (div.classList.contains(resource)) {
     inventory[resource]++;
     inventory.status[resource].innerText++;
+    inventory.status[resource].classList.remove("opacity");
   }
 }
 
+function chooseResource(e) {
+  if (e.target.classList.contains("tr-leg") && inventory["tr-leg"] > 0) {
+    variables["tr-leg"].classList.add("choosen-res");
+    variables["tr-top"].classList.remove("choosen-res");
+    variables["rock"].classList.remove("choosen-res");
+    variables["dirt"].classList.remove("choosen-res");
+    variables["grass"].classList.remove("choosen-res");
+  }
+  if (e.target.classList.contains("tr-top") && inventory["tr-top"] > 0) {
+    variables["tr-top"].classList.add("choosen-res");
+    variables["tr-leg"].classList.remove("choosen-res");
+    variables["rock"].classList.remove("choosen-res");
+    variables["dirt"].classList.remove("choosen-res");
+    variables["grass"].classList.remove("choosen-res");
+  }
+  if (e.target.classList.contains("rock") && inventory["rock"] > 0) {
+    variables["rock"].classList.add("choosen-res");
+    variables["tr-top"].classList.remove("choosen-res");
+    variables["tr-leg"].classList.remove("choosen-res");
+    variables["dirt"].classList.remove("choosen-res");
+    variables["grass"].classList.remove("choosen-res");
+  }
+  if (e.target.classList.contains("dirt") && inventory["dirt"] > 0) {
+    variables["dirt"].classList.add("choosen-res");
+    variables["rock"].classList.remove("choosen-res");
+    variables["tr-top"].classList.remove("choosen-res");
+    variables["tr-leg"].classList.remove("choosen-res");
+    variables["grass"].classList.remove("choosen-res");
+  }
+  if (e.target.classList.contains("grass") && inventory["grass"] > 0) {
+    variables["grass"].classList.add("choosen-res");
+    variables["dirt"].classList.remove("choosen-res");
+    variables["rock"].classList.remove("choosen-res");
+    variables["tr-top"].classList.remove("choosen-res");
+    variables["tr-leg"].classList.remove("choosen-res");
+  }
+}
 function removeResource(resource, div) {
   if (div.classList.contains(resource)) {
     div.classList.remove(resource);
     div.classList.add("sky");
   }
 }
+
+function addResource() {}
 createGame();
