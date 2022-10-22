@@ -1,9 +1,15 @@
 const variables = {
   board: document.querySelector("#board"),
+  tools: document.querySelector(".tool-panel"),
+  shovel: document.querySelector(".tool-shovel"),
+  pickaxe: document.querySelector(".tool-pickaxe"),
+  axe: document.querySelector(".tool-axe"),
+  resourcePanel: document.querySelector(".resources-panel")
   MATRIX_Y_AXIS: 20,
   MATRIX_X_AXIS: 28,
   cell: null,
   addTexture: null,
+  currentTool: null,
 };
 
 const resources = {
@@ -14,6 +20,26 @@ const resources = {
   treeLeg: "tr-leg",
   treeTop: "tr-top",
   cloud: "cloud",
+};
+
+const inventory = {
+  dirt: 0,
+  grass: 0,
+  rock: 0,
+  treeLeg: 0,
+  treeTop: 0,
+};
+
+const tools = {
+  shovel: "shovel",
+  pickaxe: "pickaxe",
+  axe: "axe",
+};
+
+const toolAndResource = {
+  shovel: ["dirt", "grass"],
+  pickaxe: ["rock"],
+  axe: ["tr-top", "tr-leg"],
 };
 
 function appendElements() {
@@ -41,7 +67,10 @@ function drawElements(cell) {
   }
   if (
     (y > 13 && y < 18 && x > 3 && x < 5) ||
-    (y > 14 && y < 18 && x > 13 && x < 16)
+    (y > 14 && y < 18 && x > 13 && x < 16) ||
+    (y === 9 && x > 10 && x < 19) ||
+    (y === 8 && x > 11 && x < 18) ||
+    (y === 7 && x > 12 && x < 17)
   ) {
     return resources.treeLeg;
   }
@@ -53,9 +82,6 @@ function drawElements(cell) {
     return resources.treeTop;
   }
   if (
-    (y === 9 && x > 10 && x < 19) ||
-    (y === 8 && x > 11 && x < 18) ||
-    (y === 7 && x > 12 && x < 17) ||
     (y > 11 && y < 20 && x > 11 && x < 18 && x != 15 && x != 14) ||
     (y > 9 && y < 12 && x === 12) ||
     (y > 9 && y < 12 && x > 13 && x < 16) ||
@@ -63,18 +89,47 @@ function drawElements(cell) {
     (y > 11 && y < 15 && x > 13 && x < 16)
   ) {
     return resources.rock;
-  }
-
-  // else return resources.sky;
+  } else return resources.sky;
 }
 
 function createGame() {
   appendElements();
-  board.addEventListener("click", clickHandler);
+  variables.board.addEventListener("click", blockClick);
+  variables.tools.addEventListener("click", chooseTool);
+  resources.addEventListener("click", chooseTool);
+
 }
 
-function clickHandler(e) {
+function blockClick(e) {
   console.log(e.target);
 }
+
+function chooseTool(e) {
+  console.log(e.target);
+  if (e.target.classList.contains("shovel")) {
+    currentTool = tools.shovel;
+    variables.shovel.classList.add("choosen-box");
+    variables.pickaxe.classList.remove("choosen-box");
+    variables.axe.classList.remove("choosen-box");
+  } else if (e.target.classList.contains("pickaxe")) {
+    currentTool = tools.pickaxe;
+    variables.pickaxe.classList.add("choosen-box");
+    variables.shovel.classList.remove("choosen-box");
+    variables.axe.classList.remove("choosen-box");
+  } else if (e.target.classList.contains("axe")) {
+    currentTool = tools.axe;
+    variables.axe.classList.add("choosen-box");
+    variables.shovel.classList.remove("choosen-box");
+    variables.pickaxe.classList.remove("choosen-box");
+  } 
+  // else {
+  //   currentTool = "";
+  //   variables.axe.classList.remove("choosen-box");
+  //   variables.shovel.classList.remove("choosen-box");
+  //   variables.pickaxe.classList.remove("choosen-box");
+  // }
+}
+
+function addToInventory(resource) {}
 
 createGame();

@@ -40,6 +40,10 @@ p {
   border: 1px solid white;
 }
 
+.choosen-box {
+  /* outline: 2px yellow solid; */
+}
+
 .resources-panel {
   display: flex;
   justify-content: space-between;
