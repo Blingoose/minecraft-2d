@@ -126,16 +126,19 @@ function chooseTool(e) {
     variables.shovel.classList.add("choosen-box");
     variables.pickaxe.classList.remove("choosen-box");
     variables.axe.classList.remove("choosen-box");
+    variables.board.removeEventListener("click", addResource);
   } else if (e.target.classList.contains("pickaxe")) {
     variables.currentTool = tools.pickaxe;
     variables.pickaxe.classList.add("choosen-box");
     variables.shovel.classList.remove("choosen-box");
     variables.axe.classList.remove("choosen-box");
+    variables.board.removeEventListener("click", addResource);
   } else if (e.target.classList.contains("axe")) {
     variables.currentTool = tools.axe;
     variables.axe.classList.add("choosen-box");
     variables.shovel.classList.remove("choosen-box");
     variables.pickaxe.classList.remove("choosen-box");
+    variables.board.removeEventListener("click", addResource);
   }
 }
 
@@ -156,11 +159,14 @@ function addToInventory(resource, div) {
 
 function chooseResource(e) {
   if (e.target.classList.contains("tr-leg") && inventory["tr-leg"] > 0) {
+    let res = "tr-leg";
     variables["tr-leg"].classList.add("choosen-res");
     variables["tr-top"].classList.remove("choosen-res");
     variables["rock"].classList.remove("choosen-res");
     variables["dirt"].classList.remove("choosen-res");
     variables["grass"].classList.remove("choosen-res");
+    board.addEventListener("click", addResource);
+    choosen(e, "tr-leg");
   } else if (e.target.classList.contains("tr-top") && inventory["tr-top"] > 0) {
     variables["tr-top"].classList.add("choosen-res");
     variables["tr-leg"].classList.remove("choosen-res");
@@ -194,5 +200,18 @@ function removeResource(resource, div) {
   }
 }
 
-function addResource() {}
+function choosen(e, res) {
+  addResource(e, res);
+}
+
+function addResource(e, res) {
+  let element = e.target;
+  console.log(element);
+  let type = element.getAttribute("class");
+  if (type === resources["sky"] || type === resources["cloud"]) {
+    element.setAttribute("box", res);
+    element.classList = "";
+    // inventory.classList = "dirt";
+  }
+}
 createGame();
